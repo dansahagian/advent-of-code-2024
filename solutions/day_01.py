@@ -1,8 +1,13 @@
+from pathlib import Path
+
+from settings import DATA_PATH
+
+
 class DataException(Exception):
     pass
 
 
-def read_num_data_into_sorted_lists(filename: str) -> (list, list):
+def parse_data(filename: Path) -> (list, list):
     list1 = []
     list2 = []
     with open(filename, "r") as f:
@@ -45,7 +50,7 @@ def similarity_of_lists(list1: list, list2: list) -> int:
 
 
 def main():
-    list1, list2 = read_num_data_into_sorted_lists("inputs/day_01.txt")
+    list1, list2 = parse_data(DATA_PATH / "day_01.txt")
     print(diff_of_lists(list1, list2))
     print(similarity_of_lists(list1, list2))
 
