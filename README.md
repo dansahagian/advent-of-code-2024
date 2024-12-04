@@ -1,7 +1,7 @@
 # Advent of Code, 2024
 
 ## To quickly bootstrap an environment using uv
-If you already using uv, ruff, and pre-commit, you can skip to the last step.
+If you are already using uv, ruff, and pre-commit, you can skip to the last step.
 
 Install uv:
 https://docs.astral.sh/uv/
