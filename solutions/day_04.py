@@ -53,6 +53,18 @@ def search_left_diagonal(grid: list[list[str]], row_index: int, col_index: int) 
     return 0
 
 
+def search_for_x_mas(grid: list[list[str]], row_index: int, col_index: int) -> int:
+    r, c = row_index, col_index
+    try:
+        rd = "".join([grid[r + x][c + x] for x in range(0, 3)])
+        ld = "".join([grid[r + x][c + 2 - x] for x in range(0, 3)])
+        if (rd == "MAS" or rd == "SAM") and (ld == "MAS" or ld == "SAM"):
+            return 1
+    except IndexError:
+        return 0
+    return 0
+
+
 def search_from_root(grid: list[list[str]], row_index: int, col_index: int) -> int:
     right = search_right(grid, row_index, col_index)
     down = search_down(grid, row_index, col_index)
@@ -62,20 +74,18 @@ def search_from_root(grid: list[list[str]], row_index: int, col_index: int) -> i
     return right + down + right_diagonal + left_diagonal
 
 
-def word_find_part_1(grid: list[list[str]]) -> int:
-    count = 0
+def word_find() -> tuple[int, int]:
+    grid = parse_data()
+    count_xmas = 0
+    count_x_mas = 0
     for row_index, row in enumerate(grid):
         for col_index, letter in enumerate(row):
             if letter in {"X", "S"}:
-                count += search_from_root(grid, row_index, col_index)
-    return count
-
-
-def main():
-    grid = parse_data()
-    count = word_find_part_1(grid)
-    print(count)
+                count_xmas += search_from_root(grid, row_index, col_index)
+            if letter in {"S", "M"}:
+                count_x_mas += search_for_x_mas(grid, row_index, col_index)
+    return count_xmas, count_x_mas
 
 
 if __name__ == "__main__":
-    main()
+    print(word_find())
